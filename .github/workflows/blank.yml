@@ -34,24 +34,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-  deploy-dev:
+  deploy:
+    strategy:
+      matrix:
+        deploy_environment: [Development, Testing, Pre Production]
     runs-on: ubuntu-latest
-    environment: Development
+    environment: ${{ matrix.deploy_environment }}
     needs: [build]
     steps:
       - name: Test Deploy
         run: echo Deploy to Dev
-  deploy-testing:
-    runs-on: ubuntu-latest
-    environment: Testing
-    needs: [deploy-dev]
-    steps:
-      - name: Test Deploy
-        run: echo Deploy to Test
-  deploy-preprod:
-    runs-on: ubuntu-latest
-    environment: Pre Production
-    needs: [deploy-testing]
-    steps:
-      - name: Test Deploy
-        run: echo Deploy
