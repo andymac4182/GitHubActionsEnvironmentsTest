@@ -34,9 +34,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-  deploy:
+  deploy-dev:
     runs-on: ubuntu-latest
     environment: Development
+    needs: [build]
     steps:
       - name: Test Deploy
         run: echo Deploy to Dev
+  deploy-testing:
+    runs-on: ubuntu-latest
+    environment: Testing
+    needs: [deploy-dev]
+    steps:
+      - name: Test Deploy
+        run: echo Deploy to Test
