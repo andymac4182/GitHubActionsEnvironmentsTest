@@ -48,3 +48,10 @@ jobs:
     steps:
       - name: Test Deploy
         run: echo Deploy to Test
+  deploy-preprod:
+    runs-on: ubuntu-latest
+    environment: Pre Production
+    needs: [deploy-testing]
+    steps:
+      - name: Test Deploy
+        run: echo Deploy
